@@ -1,2 +1,3 @@
 # ShineStock
- Gestão de estoque
+ ### O estoque que faz sua produção brilhar.
+
