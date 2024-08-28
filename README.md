@@ -1,0 +1,2 @@
+# ShineStock
+ Gestão de estoque
