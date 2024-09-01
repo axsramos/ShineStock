@@ -1,17 +1,23 @@
 <?php
 
-$attBasEtpCod = '';
-$attBasEtpDca = date('Y-m-d');
+$attCmpPncCod = '';
+$attCmpPncDca = date('Y-m-d');
+$attCmpPncDsc = '';
+$attCmpPncEtp = '';
 $attBasEtpDsc = '';
-$attBasEtpBlq = '';
 $attBasEtpGrp = '';
+$attCmpPncUsr = '';
+$attCmpPncObs = '';
 
-if (isset($data_content['DataHeader']['BasEtpCod'])) {
-    $attBasEtpCod = $data_content['DataHeader']['BasEtpCod'];
-    $attBasEtpDca = substr($data_content['DataHeader']['BasEtpDca'], 0, 10);
+if (isset($data_content['DataHeader']['CmpPncCod'])) {
+    $attCmpPncCod = $data_content['DataHeader']['CmpPncCod'];
+    $attCmpPncDca = substr($data_content['DataHeader']['CmpPncDca'], 0, 10);
+    $attCmpPncDsc = $data_content['DataHeader']['CmpPncDsc'];
+    $attCmpPncEtp = $data_content['DataHeader']['CmpPncEtp'];
     $attBasEtpDsc = $data_content['DataHeader']['BasEtpDsc'];
-    $attBasEtpBlq = $data_content['DataHeader']['BasEtpBlq'];
     $attBasEtpGrp = $data_content['DataHeader']['BasEtpGrp'];
+    $attCmpPncUsr =   $data_content['DataHeader']['CmpPncUsr'];
+    $attCmpPncObs = $data_content['DataHeader']['CmpPncObs'];
 }
 
 // $isDisabled = ($data_content['ActionMode'] == 'modeDisplay' ? 'disabled' : '');
@@ -42,11 +48,11 @@ if ($data_content['DataRowsSelection']) {
 
         <div id="layoutSidenav_content">
             <main>
-                <form action="/ShineStock/EtapaItem/Show/<?= $attBasEtpCod; ?>" method="post">
+                <form action="/ShineStock/MateriaPrimaPedidoCompra/Show/<?= $attCmpPncCod; ?>" method="post">
                     <div class="container-fluid">
-                        <h1 class="mt-4">Itens por Etapa</h1>
+                        <h1 class="mt-4">Mat&eacute;ria Prima Pedido Compra</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Itens por etapa do fluxo do processo</li>
+                            <li class="breadcrumb-item active">Itens de Mat&eacute;ria Prima do Pedido Compra</li>
                         </ol>
                         <div class="card mb-4">
                             <div class="card-header">
@@ -56,36 +62,41 @@ if ($data_content['DataRowsSelection']) {
                             <div class="card-body">
                                 <div class="table">
                                     <div class="mb-3 row">
-                                        <label for="attBasEtpCod" class="col-sm-2 col-form-label">C&oacute;digo</label>
+                                        <label for="attCmpPncCod" class="col-sm-2 col-form-label">C&oacute;digo</label>
                                         <div class="col-sm-10">
-                                            <input type="number" class="form-control" id="attBasEtpCod" name="BasEtpCod" value="<?= $attBasEtpCod; ?>" disabled>
+                                            <input type="number" class="form-control" id="attCmpPncCod" name="CmpPncCod" value="<?= $attCmpPncCod; ?>" disabled>
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="attBasEtpDca" class="col-sm-2 col-form-label">Cadastro</label>
+                                        <label for="attCmpPncDca" class="col-sm-2 col-form-label">Cadastro</label>
                                         <div class="col-sm-10">
-                                            <input type="date" class="form-control" id="attBasEtpDca" name="BasEtpDca" value="<?= $attBasEtpDca; ?>" disabled>
+                                            <input type="date" class="form-control" id="attCmpPncDca" name="CmpPncDca" value="<?= $attCmpPncDca; ?>" disabled>
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="attBasEtpDsc" class="col-sm-2 col-form-label">Descri&ccedil;&atilde;o</label>
+                                        <label for="attCmpPncDsc" class="col-sm-2 col-form-label">Descri&ccedil;&atilde;o</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="attBasEtpDsc" name="BasEtpDsc" value="<?= $attBasEtpDsc; ?>" disabled>
+                                            <input type="text" class="form-control" id="attCmpPncDsc" name="CmpPncDsc" value="<?= $attCmpPncDsc; ?>" disabled required>
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="attBasEtpBlq" class="col-sm-2 col-form-label">Bloqueado</label>
+                                        <label for="attCmpPncEtp" class="col-sm-2 col-form-label">Etapa</label>
                                         <div class="col-sm-10">
-                                            <select class="form-control" id="attBasEtpBlq" name="BasEtpBlq" disabled>
-                                                <option value="N" <?= ($attBasEtpBlq == 'N' ? 'selected' : ''); ?>>N&atilde;o</option>
-                                                <option value="S" <?= ($attBasEtpBlq == 'S' ? 'selected' : ''); ?>>Sim</option>
+                                            <select class="form-control form-select" aria-label="Default select example" id="attCmpPncEtp" name="CmpPncEtp" value="<?= $attCmpPncEtp; ?>" disabled>
+                                                <?php echo '<option selected value="' . $attCmpPncEtp . '">' . $attBasEtpGrp . ' | ' . $attBasEtpDsc . '</option>'; ?>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="attBasEtpGrp" class="col-sm-2 col-form-label">Grupo</label>
+                                        <label for="attCmpPncUsr" class="col-sm-2 col-form-label">Usu&aacute;rio</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="attBasEtpGrp" name="BasEtpGrp" value="<?= $attBasEtpGrp; ?>" disabled>
+                                            <input type="text" class="form-control" id="attCmpPncUsr" name="CmpPncUsr" value="<?= $attCmpPncUsr; ?>" disabled required>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label for="attCmpPncObs" class="col-sm-2 col-form-label">Observa&ccedil;&otilde;es</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="attCmpPncObs" name="CmpPncObs" value="<?= $attCmpPncObs; ?>" disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -106,7 +117,7 @@ if ($data_content['DataRowsSelection']) {
                                                 <th hidden>C&oacute;digo</th>
                                                 <th>Cadastro</th>
                                                 <th>Descri&ccedil;&atilde;o</th>
-                                                <th>Bloqueado</th>
+                                                <th>Quantidade</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
@@ -115,7 +126,7 @@ if ($data_content['DataRowsSelection']) {
                                                 <th hidden>C&oacute;digo</th>
                                                 <th>Cadastro</th>
                                                 <th>Descri&ccedil;&atilde;o</th>
-                                                <th>Bloqueado</th>
+                                                <th>Quantidade</th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
@@ -123,15 +134,11 @@ if ($data_content['DataRowsSelection']) {
                                             if ($data_content['DataRows']) {
                                                 foreach ($data_content['DataRows'] as $data_item) {
                                                     echo '<tr>';
-                                                    echo '<td><a type="button" class="btn btn-outline-danger" href="/ShineStock/EtapaItem/Remove/' . $attBasEtpCod . '/' . $data_item['BasEtpItmCod'] . '">Remover</a></td>';
-                                                    echo '<td hidden>' . $data_item['BasEtpItmCod'] . '</td>';
-                                                    echo '<td>' . $data_item['BasEtpItmDca'] . '</td>';
-                                                    echo '<td>' . $data_item['BasEtpItmDsc'] . '</td>';
-                                                    if ($data_item['BasEtpItmBlq'] == 'N') {
-                                                        echo '<td>Não</td>';
-                                                    } else {
-                                                        echo '<td>Sim</td>';
-                                                    }
+                                                    echo '<td><a type="button" class="btn btn-outline-danger" href="/ShineStock/MateriaPrimaPedidoCompra/Remove/' . $attCmpPncCod . '/' . $data_item['CmpMprCod'] . '">Remover</a></td>';
+                                                    echo '<td hidden>' . $data_item['CmpMprCod'] . '</td>';
+                                                    echo '<td>' . $data_item['CmpPncMprDca'] . '</td>';
+                                                    echo '<td>' . $data_item['CmpMprDsc'] . '</td>';
+                                                    echo '<td>' . $data_item['CmpPncMprQtd'] . '</td>';
                                                     echo '</tr>';
                                                 }
                                             }
@@ -144,8 +151,8 @@ if ($data_content['DataRowsSelection']) {
 
                         <div class="d-grid gap-2 d-md-block">
                             <div class="mb-4">
-                                <a class="btn btn-secondary" type="button" href="/ShineStock/Etapa">Fechar</a>
-                                <!-- <a type="button" class="btn btn-primary" href="/ShineStock/Etapa/Show/0">Novo</a> -->
+                                <a class="btn btn-secondary" type="button" href="/ShineStock/PedidoCompra">Fechar</a>
+                                <!-- <a type="button" class="btn btn-primary" href="/ShineStock/MateriaPrimaPedidoCompra/Show/0">Novo</a> -->
                                 <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#msgNovo">Novo</button>
                             </div>
                             <!-- <button class="btn btn-success" type="submit" name="btnConfirm" <?= ($data_content['ActionMode'] == 'modeDisplay' ? 'hidden' : ''); ?>>Confirmar</button> -->
@@ -198,7 +205,7 @@ if ($data_content['DataRowsSelection']) {
                                     <div class="card mb-4">
                                         <div class="card-header">
                                             <i class="fas fa-table mr-1"></i>
-                                            Lista de etapas
+                                            Lista de mat&eacute;ria prima
                                         </div>
                                         <div class="card-body">
                                             <div class="table-responsive">
@@ -222,9 +229,9 @@ if ($data_content['DataRowsSelection']) {
                                                         if ($data_content_selection) {
                                                             foreach ($data_content_selection['DataRowsSelection'] as $data_item_selection) {
                                                                 echo '<tr>';
-                                                                echo '<td><a type="button" class="btn btn-outline-primary" href="/ShineStock/EtapaItem/Add/' . $attBasEtpCod . '/' . $data_item_selection['BasEtpCod'] . '">Selecionar</a></td>';
-                                                                echo '<td hidden>' . $data_item_selection['BasEtpCod'] . '</td>';
-                                                                echo '<td>' . $data_item_selection['BasEtpDsc'] . '</td>';
+                                                                echo '<td><a type="button" class="btn btn-outline-primary" href="/ShineStock/MateriaPrimaPedidoCompra/Add/' . $attCmpPncCod . '/' . $data_item_selection['CmpMprCod'] . '">Selecionar</a></td>';
+                                                                echo '<td hidden>' . $data_item_selection['CmpMprCod'] . '</td>';
+                                                                echo '<td>' . $data_item_selection['CmpMprDsc'] . '</td>';
                                                                 echo '</tr>';
                                                             }
                                                         }

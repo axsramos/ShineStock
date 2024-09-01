@@ -1,20 +1,24 @@
 <?php
 
-$attCmpFncCod = '';
-$attCmpFncDca = date('Y-m-d');
-$attCmpFncDsc = '';
-$attCmpFncBlq = '';
-$attCmpFncObs = '';
+$attCmpPncCod = '';
+$attCmpPncDca = date('Y-m-d');
+$attCmpPncDsc = '';
+$attCmpPncEtp = '';
+$attCmpPncUsr = '';
+$attCmpPncObs = '';
 
-if (isset($data_content['DataRow']['CmpFncCod'])) {
-    $attCmpFncCod = $data_content['DataRow']['CmpFncCod'];
-    $attCmpFncDca = substr($data_content['DataRow']['CmpFncDca'], 0, 10);
-    $attCmpFncDsc = $data_content['DataRow']['CmpFncDsc'];
-    $attCmpFncBlq = $data_content['DataRow']['CmpFncBlq'];
-    $attCmpFncObs = $data_content['DataRow']['CmpFncObs'];
+if (isset($data_content['DataRow']['CmpPncCod'])) {
+    $attCmpPncCod = $data_content['DataRow']['CmpPncCod'];
+    $attCmpPncDca = substr($data_content['DataRow']['CmpPncDca'], 0, 10);
+    $attCmpPncDsc = $data_content['DataRow']['CmpPncDsc'];
+    $attCmpPncEtp = $data_content['DataRow']['CmpPncEtp'];
+    $attCmpPncUsr = $data_content['DataRow']['CmpPncUsr'];
+    $attCmpPncObs = $data_content['DataRow']['CmpPncObs'];
 }
 
 $isDisabled = ($data_content['ActionMode'] == 'modeDisplay' ? 'disabled' : '');
+
+$etapas = $this->getSelectionBasEtp();
 
 ?>
 
@@ -36,11 +40,11 @@ $isDisabled = ($data_content['ActionMode'] == 'modeDisplay' ? 'disabled' : '');
 
         <div id="layoutSidenav_content">
             <main>
-                <form action="/ShineStock/Fornecedor/Show/<?= $attCmpFncCod; ?>" method="post">
+                <form action="/ShineStock/PedidoCompra/Show/<?= $attCmpPncCod; ?>" method="post">
                     <div class="container-fluid">
-                        <h1 class="mt-4">Fornecedor</h1>
+                        <h1 class="mt-4">Pedido Necessidade de Compra</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Fornecedor</li>
+                            <li class="breadcrumb-item active">Pedido Necessidade de Compra</li>
                         </ol>
                         <div class="card mb-4">
                             <div class="card-header">
@@ -50,47 +54,60 @@ $isDisabled = ($data_content['ActionMode'] == 'modeDisplay' ? 'disabled' : '');
                             <div class="card-body">
                                 <div class="table">
                                     <div class="mb-3 row">
-                                        <label for="attCmpFncCod" class="col-sm-2 col-form-label">C&oacute;digo</label>
+                                        <label for="attCmpPncCod" class="col-sm-2 col-form-label">C&oacute;digo</label>
                                         <div class="col-sm-10">
-                                            <input type="number" class="form-control" id="attCmpFncCod" name="CmpFncCod" value="<?= $attCmpFncCod; ?>" disabled>
+                                            <input type="number" class="form-control" id="attCmpPncCod" name="CmpPncCod" value="<?= $attCmpPncCod; ?>" disabled>
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="attCmpFncDca" class="col-sm-2 col-form-label">Cadastro</label>
+                                        <label for="attCmpPncDca" class="col-sm-2 col-form-label">Cadastro</label>
                                         <div class="col-sm-10">
-                                            <input type="date" class="form-control" id="attCmpFncDca" name="CmpFncDca" value="<?= $attCmpFncDca; ?>" <?= $isDisabled ?>>
+                                            <input type="date" class="form-control" id="attCmpPncDca" name="CmpPncDca" value="<?= $attCmpPncDca; ?>" <?= $isDisabled ?>>
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="attCmpFncDsc" class="col-sm-2 col-form-label">Descri&ccedil;&atilde;o</label>
+                                        <label for="attCmpPncDsc" class="col-sm-2 col-form-label">Descri&ccedil;&atilde;o</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="attCmpFncDsc" name="CmpFncDsc" value="<?= $attCmpFncDsc; ?>" <?= $isDisabled ?> required>
+                                            <input type="text" class="form-control" id="attCmpPncDsc" name="CmpPncDsc" value="<?= $attCmpPncDsc; ?>" <?= $isDisabled ?> required>
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="attCmpFncBlq" class="col-sm-2 col-form-label">Bloqueado</label>
+                                        <label for="attCmpPncEtp" class="col-sm-2 col-form-label">Etapa</label>
                                         <div class="col-sm-10">
-                                            <select class="form-control" id="attCmpFncBlq" name="CmpFncBlq" <?= $isDisabled ?>>
-                                                <option value="N" <?= ($attCmpFncBlq == 'N' ? 'selected' : ''); ?>>N&atilde;o</option>
-                                                <option value="S" <?= ($attCmpFncBlq == 'S' ? 'selected' : ''); ?>>Sim</option>
+                                            <select class="form-control form-select" aria-label="Default select example" id="attCmpPncEtp" name="CmpPncEtp" value="<?= $attCmpPncEtp; ?>" <?= $isDisabled ?>>
+                                                <!-- <option selected>Open this select menu</option> -->
+                                                <?php if($etapas) {
+                                                    foreach ($etapas as $etapa_item) {
+                                                        $isSelected = ($etapa_item['BasEtpCod'] == $attCmpPncEtp ? 'selected' : '');
+                                                        echo '<option ' . $isSelected . ' value="' . $etapa_item['BasEtpCod'] . '">' . $etapa_item['BasEtpGrp'] . ' | ' . $etapa_item['BasEtpDsc'] . '</option>';
+                                                    }
+                                                } else {
+                                                    echo '<option value="">NONE</option>';
+                                                }?>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="attCmpFncObs" class="col-sm-2 col-form-label">Grupo</label>
+                                        <label for="attCmpPncUsr" class="col-sm-2 col-form-label">Usu&aacute;rio</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="attCmpFncObs" name="CmpFncObs" value="<?= $attCmpFncObs; ?>" <?= $isDisabled; ?>>
+                                            <input type="text" class="form-control" id="attCmpPncUsr" name="CmpPncUsr" value="<?= $attCmpPncUsr; ?>" <?= $isDisabled ?> required>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label for="attCmpPncObs" class="col-sm-2 col-form-label">Observa&ccedil;&otilde;es</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="attCmpPncObs" name="CmpPncObs" value="<?= $attCmpPncObs; ?>" <?= $isDisabled; ?>>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="d-grid gap-2 d-md-block">
-                            <a class="btn btn-secondary" type="button" href="/ShineStock/Fornecedor">Fechar</a>
+                            <a class="btn btn-secondary" type="button" href="/ShineStock/PedidoCompra">Fechar</a>
                             <button class="btn btn-success" type="submit" name="btnConfirm" <?= ($data_content['ActionMode'] == 'modeDisplay' ? 'hidden' : ''); ?>>Confirmar</button>
                             <button class="btn btn-primary" type="submit" name="btnUpdate" <?= ($data_content['ActionMode'] == 'modeDisplay' ? '' : 'hidden'); ?>>Editar</button>
                             <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#msgModal" <?= ($data_content['ActionMode'] == 'modeDisplay' ? '' : 'hidden'); ?>>Excluir</button>
-                            <a class="btn btn-info" type="button" href="/ShineStock/MateriaPrimaFornecedor/Index/<?=$attCmpFncCod?>" <?= ($data_content['ActionMode'] == 'modeDisplay' ? '' : 'hidden'); ?>>Mat&eacute;ria Prima</a>
+                            <a class="btn btn-info" type="button" href="/ShineStock/MateriaPrimaPedidoCompra/Index/<?=$attCmpPncCod?>" <?= ($data_content['ActionMode'] == 'modeDisplay' ? '' : 'hidden'); ?>>Mat&eacute;ria Prima</a>
                         </div>
                     </div>
 
