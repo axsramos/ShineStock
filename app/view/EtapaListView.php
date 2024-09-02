@@ -33,7 +33,6 @@
                                         <tr>
                                             <th>Item</th>
                                             <th hidden>C&oacute;digo</th>
-                                            <th>Cadastro</th>
                                             <th>Descri&ccedil;&atilde;o</th>
                                             <th>Bloqueado</th>
                                             <th>Grupo</th>
@@ -43,7 +42,6 @@
                                         <tr>
                                             <th>Item</th>
                                             <th hidden>C&oacute;digo</th>
-                                            <th>Cadastro</th>
                                             <th>Descri&ccedil;&atilde;o</th>
                                             <th>Bloqueado</th>
                                             <th>Grupo</th>
@@ -57,7 +55,6 @@
                                                 echo '<td><div class="btn-group"><a type="button" class="btn btn-outline-primary" href="/ShineStock/Etapa/Show/' . $data_item['BasEtpCod'] . '">Item</a>';
                                                 echo '<a type="button" class="btn btn-outline-secondary" href="/ShineStock/EtapaItem/Index/' . $data_item['BasEtpCod'] . '">SubItem</a></div></td>';
                                                 echo '<td hidden>' . $data_item['BasEtpCod'] . '</td>';
-                                                echo '<td>' . $data_item['BasEtpDca'] . '</td>';
                                                 echo '<td>' . $data_item['BasEtpDsc'] . '</td>';
                                                 if ($data_item['BasEtpBlq'] == 'N') {
                                                     echo '<td>Não</td>';

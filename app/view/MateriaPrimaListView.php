@@ -33,7 +33,6 @@
                                         <tr>
                                             <th>Item</th>
                                             <th hidden>C&oacute;digo</th>
-                                            <th>Cadastro</th>
                                             <th>Descri&ccedil;&atilde;o</th>
                                             <th>Bloqueado</th>
                                             <th>Observa&ccedil;&otilde;es</th>
@@ -43,7 +42,6 @@
                                         <tr>
                                             <th>Item</th>
                                             <th hidden>C&oacute;digo</th>
-                                            <th>Cadastro</th>
                                             <th>Descri&ccedil;&atilde;o</th>
                                             <th>Bloqueado</th>
                                             <th>Observa&ccedil;&otilde;es</th>
@@ -56,7 +54,6 @@
                                                 echo '<tr>';
                                                 echo '<td><a type="button" class="btn btn-outline-primary" href="/ShineStock/MateriaPrima/Show/' . $data_item['CmpMprCod'] . '">Item</a></td>';
                                                 echo '<td hidden>' . $data_item['CmpMprCod'] . '</td>';
-                                                echo '<td>' . $data_item['CmpMprDca'] . '</td>';
                                                 echo '<td>' . $data_item['CmpMprDsc'] . '</td>';
                                                 if ($data_item['CmpMprBlq'] == 'N') {
                                                     echo '<td>Não</td>';

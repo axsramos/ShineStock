@@ -104,7 +104,6 @@ if ($data_content['DataRowsSelection']) {
                                             <tr>
                                                 <th>Item</th>
                                                 <th hidden>C&oacute;digo</th>
-                                                <th>Cadastro</th>
                                                 <th>Descri&ccedil;&atilde;o</th>
                                                 <th>Bloqueado</th>
                                             </tr>
@@ -113,7 +112,6 @@ if ($data_content['DataRowsSelection']) {
                                             <tr>
                                                 <th>Item</th>
                                                 <th hidden>C&oacute;digo</th>
-                                                <th>Cadastro</th>
                                                 <th>Descri&ccedil;&atilde;o</th>
                                                 <th>Bloqueado</th>
                                             </tr>
@@ -125,7 +123,6 @@ if ($data_content['DataRowsSelection']) {
                                                     echo '<tr>';
                                                     echo '<td><a type="button" class="btn btn-outline-danger" href="/ShineStock/MateriaPrimaFornecedor/Remove/' . $attCmpFncCod . '/' . $data_item['CmpMprCod'] . '">Remover</a></td>';
                                                     echo '<td hidden>' . $data_item['CmpMprCod'] . '</td>';
-                                                    echo '<td>' . $data_item['CmpMpfDca'] . '</td>';
                                                     echo '<td>' . $data_item['CmpMpfDsc'] . '</td>';
                                                     if ($data_item['CmpMpfBlq'] == 'N') {
                                                         echo '<td>Não</td>';

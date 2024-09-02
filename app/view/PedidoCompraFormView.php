@@ -20,6 +20,13 @@ $isDisabled = ($data_content['ActionMode'] == 'modeDisplay' ? 'disabled' : '');
 
 $etapas = $this->getSelectionBasEtp();
 
+$proxima_etapa = $this->getNextStepBasEtp($attCmpPncEtp);
+
+$isDisabledNextStep = '';
+if (!$proxima_etapa) {
+    $isDisabledNextStep = 'hidden';
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -76,14 +83,14 @@ $etapas = $this->getSelectionBasEtp();
                                         <div class="col-sm-10">
                                             <select class="form-control form-select" aria-label="Default select example" id="attCmpPncEtp" name="CmpPncEtp" value="<?= $attCmpPncEtp; ?>" <?= $isDisabled ?>>
                                                 <!-- <option selected>Open this select menu</option> -->
-                                                <?php if($etapas) {
+                                                <?php if ($etapas) {
                                                     foreach ($etapas as $etapa_item) {
                                                         $isSelected = ($etapa_item['BasEtpCod'] == $attCmpPncEtp ? 'selected' : '');
                                                         echo '<option ' . $isSelected . ' value="' . $etapa_item['BasEtpCod'] . '">' . $etapa_item['BasEtpGrp'] . ' | ' . $etapa_item['BasEtpDsc'] . '</option>';
                                                     }
                                                 } else {
                                                     echo '<option value="">NONE</option>';
-                                                }?>
+                                                } ?>
                                             </select>
                                         </div>
                                     </div>
@@ -107,7 +114,8 @@ $etapas = $this->getSelectionBasEtp();
                             <button class="btn btn-success" type="submit" name="btnConfirm" <?= ($data_content['ActionMode'] == 'modeDisplay' ? 'hidden' : ''); ?>>Confirmar</button>
                             <button class="btn btn-primary" type="submit" name="btnUpdate" <?= ($data_content['ActionMode'] == 'modeDisplay' ? '' : 'hidden'); ?>>Editar</button>
                             <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#msgModal" <?= ($data_content['ActionMode'] == 'modeDisplay' ? '' : 'hidden'); ?>>Excluir</button>
-                            <a class="btn btn-info" type="button" href="/ShineStock/MateriaPrimaPedidoCompra/Index/<?=$attCmpPncCod?>" <?= ($data_content['ActionMode'] == 'modeDisplay' ? '' : 'hidden'); ?>>Mat&eacute;ria Prima</a>
+                            <a class="btn btn-info" type="button" href="/ShineStock/MateriaPrimaPedidoCompra/Index/<?= $attCmpPncCod ?>" <?= ($data_content['ActionMode'] == 'modeDisplay' ? '' : 'hidden'); ?>>Mat&eacute;ria Prima</a>
+                            <button class="btn btn-warning" type="button" name="btnNextStep" data-toggle="modal" data-target="#msgEtapa" <?= ($data_content['ActionMode'] == 'modeDisplay' ? $isDisabledNextStep : 'hidden'); ?>>Avan&ccedil;ar Etapa</button>
                         </div>
                     </div>
 
@@ -134,6 +142,70 @@ $etapas = $this->getSelectionBasEtp();
                                 <div class="modal-footer">
                                     <button type="submit" class="btn btn-danger" name="btnDelete">Excluir</button>
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="msgEtapa" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Conteúdo do modal-->
+                            <div class="modal-content">
+
+                                <!-- Cabeçalho do modal -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Selecione uma op&ccedil;&atilde;o da lista</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+
+                                <!-- Corpo do modal -->
+                                <div class="modal-body">
+                                    <div class="card mb-4">
+                                        <div class="card-header">
+                                            <i class="fas fa-table mr-1"></i>
+                                            Lista de etapas
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Item</th>
+                                                            <th hidden>C&oacute;digo</th>
+                                                            <th>Descri&ccedil;&atilde;o</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th>Item</th>
+                                                            <th hidden>C&oacute;digo</th>
+                                                            <th>Descri&ccedil;&atilde;o</th>
+                                                        </tr>
+                                                    </tfoot>
+                                                    <tbody>
+                                                        <?php
+                                                        if ($proxima_etapa) {
+                                                            foreach ($proxima_etapa as $proxima_etapa_item) {
+                                                                echo '<tr>';
+                                                                echo '<td><a type="button" class="btn btn-outline-primary" href="/ShineStock/PedidoCompra/NextStep/' . $attCmpPncCod . '/' . $proxima_etapa_item['BasEtpItmCod'] . '">Aplicar</a></td>';
+                                                                echo '<td hidden>' . $proxima_etapa_item['BasEtpItmCod'] . '</td>';
+                                                                echo '<td>' . $proxima_etapa_item['BasEtpItmDsc'] . '</td>';
+                                                                echo '</tr>';
+                                                            }
+                                                        }
+                                                        ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Rodapé do modal-->
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                                 </div>
 
                             </div>

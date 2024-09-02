@@ -104,7 +104,6 @@ if ($data_content['DataRowsSelection']) {
                                             <tr>
                                                 <th>Item</th>
                                                 <th hidden>C&oacute;digo</th>
-                                                <th>Cadastro</th>
                                                 <th>Descri&ccedil;&atilde;o</th>
                                                 <th>Bloqueado</th>
                                             </tr>
@@ -113,7 +112,6 @@ if ($data_content['DataRowsSelection']) {
                                             <tr>
                                                 <th>Item</th>
                                                 <th hidden>C&oacute;digo</th>
-                                                <th>Cadastro</th>
                                                 <th>Descri&ccedil;&atilde;o</th>
                                                 <th>Bloqueado</th>
                                             </tr>
@@ -125,7 +123,6 @@ if ($data_content['DataRowsSelection']) {
                                                     echo '<tr>';
                                                     echo '<td><a type="button" class="btn btn-outline-danger" href="/ShineStock/EtapaItem/Remove/' . $attBasEtpCod . '/' . $data_item['BasEtpItmCod'] . '">Remover</a></td>';
                                                     echo '<td hidden>' . $data_item['BasEtpItmCod'] . '</td>';
-                                                    echo '<td>' . $data_item['BasEtpItmDca'] . '</td>';
                                                     echo '<td>' . $data_item['BasEtpItmDsc'] . '</td>';
                                                     if ($data_item['BasEtpItmBlq'] == 'N') {
                                                         echo '<td>Não</td>';

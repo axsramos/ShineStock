@@ -4,6 +4,8 @@ use app\core\Controller;
 use app\shared\MessageDictionary;
 use app\model\PedidoCompraModel;
 use app\model\EtapaModel;
+use app\model\EtapaItemModel;
+
 
 class PedidoCompra extends Controller
 {
@@ -78,6 +80,19 @@ class PedidoCompra extends Controller
     $this->view('PedidoCompraFormView', $data_content);
   }
 
+  public function NextStep($id, $step)
+  {
+    $this->csPedidoCompraModel = new PedidoCompraModel();
+    $this->csPedidoCompraModel->setCmpPncCod($id);
+    $this->csPedidoCompraModel->readLine();
+
+    $this->csPedidoCompraModel->setCmpPncEtp($step);
+
+    if ($this->csPedidoCompraModel->updateLine()) {
+      header("Location: /ShineStock/PedidoCompra");
+    }
+  }
+
   private function SetValues()
   {
     if (isset($_POST['CmpPncCod'])) {
@@ -92,15 +107,20 @@ class PedidoCompra extends Controller
     return $this->csPedidoCompraModel;
   }
 
-  protected function getSelectionBasEtp() {
+  protected function getSelectionBasEtp()
+  {
     $csEtapaModel = new EtapaModel();
     $rows = $csEtapaModel->readAllLines();
 
-    // $etapas = array(
-    //   array("BasEtpCod"=>"1", "BasEtpDsc"=>"Hum"),
-    //   array("BasEtpCod"=>"2", "BasEtpDsc"=>"Dois")
-    // );
-    
+    return $rows;
+  }
+
+  protected function getNextStepBasEtp($currentStep)
+  {
+    $csEtapaItemModel = new EtapaItemModel();
+    $csEtapaItemModel->setBasEtpCod($currentStep);
+    $rows = $csEtapaItemModel->readAllLines();
+
     return $rows;
   }
 }
