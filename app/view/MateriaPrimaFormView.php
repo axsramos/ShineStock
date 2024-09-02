@@ -77,7 +77,7 @@ $isDisabled = ($data_content['ActionMode'] == 'modeDisplay' ? 'disabled' : '');
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="attCmpMprObs" class="col-sm-2 col-form-label">Grupo</label>
+                                        <label for="attCmpMprObs" class="col-sm-2 col-form-label">Observa&ccedil;&otilde;es</label>
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" id="attCmpMprObs" name="CmpMprObs" value="<?= $attCmpMprObs; ?>" <?= $isDisabled; ?>>
                                         </div>

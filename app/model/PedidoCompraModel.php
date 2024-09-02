@@ -332,4 +332,37 @@ class PedidoCompraModel
 
         // $stmt = $this->cnx->executeQuery($qry, $parameters);
     }
+
+    public function balanceCards()
+    {
+
+        $qry = "
+        SELECT
+            BasEtp.BasEtpDsc as BasEtpDsc, count(CmpPncEtp) as CmpPncQtd
+        FROM
+        " . $this->tbl . "
+        INNER JOIN BasEtp 
+        ON BasEtp.BasEtpCod = CmpPnc.CmpPncEtp 
+        WHERE
+            CmpPnc.CmpPncEtp = :CmpPncEtp
+        GROUP BY CmpPncEtp
+        ";
+
+        $parameters = array(
+            ":CmpPncEtp" => $this->attCmpPncEtp
+        );
+
+        $stmt = $this->cnx->executeQuery($qry, $parameters);
+        $rows = $stmt->rowCount();
+
+        $result = 0;
+
+        if ($rows) {
+            $this->data_row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            $result = $this->data_row['CmpPncQtd'];
+        }
+
+        return $result;
+    }
 }

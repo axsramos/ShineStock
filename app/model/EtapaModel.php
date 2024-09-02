@@ -329,4 +329,33 @@ class EtapaModel
 
         return $allLines;
     }
+
+    public function findStatus()
+    {
+        $qry = "
+        SELECT
+            BasEtpCod,
+            BasEtpDsc
+        FROM
+        " . $this->tbl . "
+        WHERE
+            BasEtpDsc = :BasEtpDsc
+        ";
+
+        $parameters = array(
+            ":BasEtpDsc" => $this->attBasEtpDsc
+        );
+
+        $stmt = $this->cnx->executeQuery($qry, $parameters);
+        $rows = $stmt->rowCount();
+
+        if ($rows) {
+            $this->data_row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            $this->attBasEtpCod = $this->data_row['BasEtpCod'];
+            $this->attBasEtpDsc = $this->data_row['BasEtpDsc'];
+        }
+        
+        return boolval($rows);
+    }
 }
