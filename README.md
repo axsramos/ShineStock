@@ -32,6 +32,8 @@ Outro usuário, responsável por realizar as aprovações dos pedidos "FECHADOS"
 
 As etapas são parametrizadas, podendo haver mais passos além dos já definidos.
 
+[Ver Demonstra&ccedil;&atilde;o](http://shinestock.free.nf/ShineStock/Dashboard)
+
 <table>
   <tr>
     <td>
